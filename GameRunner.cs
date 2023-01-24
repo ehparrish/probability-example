@@ -7,6 +7,7 @@ public class GameRunner{
     public int coinPoints = 1; //how many points the coin game is worth
     private Die _die = new Die();
     public int dicePoints = 2; //how many points the dice game is worth
+    public Deck _deck = new Deck();
     public int cardPoints = 5;
 
     //Reads input line and verfies a Y or N
@@ -44,7 +45,7 @@ public class GameRunner{
             Console.WriteLine(_coin.Display());
             Console.Write("Do you think the next coin flip will be the same? Y or N: ");
             string bet = getYN();
-            Console.WriteLine("Flipping again!");
+            Console.WriteLine("\nFlipping again!");
             bool secondFlip = _coin.Flip();
             Console.WriteLine(_coin.Display());
             if(bet == "Y"){
@@ -73,7 +74,7 @@ public class GameRunner{
                 Console.WriteLine("Sorry. You don't have enough points to keep playing.");
             }
             else{
-                Console.Write("Would you like to play again? Y or N: ");
+                Console.Write("\nWould you like to play again? Y or N: ");
                 playAgain = getYN();
             }
         }
@@ -95,7 +96,7 @@ public class GameRunner{
             Console.WriteLine("Do you think the next roll will be Higher(>), Lower(<) or the Same(=)?");
             Console.Write("Enter >, < or =? ");
             string bet = getCompare();
-            Console.WriteLine("Rolling again!");
+            Console.WriteLine("\nRolling again!");
             int secondRoll = _die.Roll();
             Console.WriteLine(_die.Display());
             //Check if the user won
@@ -135,10 +136,67 @@ public class GameRunner{
                 Console.WriteLine("Sorry. You don't have enough points to keep playing.");
             }
             else{
-                Console.Write("Would you like to play again? Y or N: ");
+                Console.Write("\nWould you like to play again? Y or N: ");
                 playAgain = getYN();
             }
         }
         return points;
     }//end DiceGame
+    
+    public int CardGame (int points){
+        string playAgain = "Y";
+        _deck.ShuffleAll();
+        while (playAgain != "N"){
+            Console.WriteLine("\nDealing card");
+            Card firstCard = _deck.DrawAndDiscard();
+            Console.WriteLine(firstCard.DisplayReverse(" of "));
+            Card secondCard = _deck.DrawAndDiscard();
+            Console.WriteLine("Do you think the next card will be Higher(>), Lower(<) or the Same(=)?");
+            Console.Write("Enter >, < or =? ");
+            string bet = getCompare();
+            Console.WriteLine("\nNext Card!");
+            Console.WriteLine(secondCard.DisplayReverse(" of "));
+            //Check if the user won
+            if(bet == ">"){
+                if(Deck.Compare(secondCard,firstCard) == Comparator.Greater){
+                    points += cardPoints;
+                    Console.WriteLine($"You win! You now have {points} points!");
+                }
+                else{
+                    points -= cardPoints;
+                    Console.WriteLine($"You lose! You now have {points} points!");
+                }
+            }
+            else if (bet == "<"){
+                if(Deck.Compare(secondCard,firstCard) == Comparator.Less){
+                    points += cardPoints;
+                    Console.WriteLine($"You win! You now have {points} points!");
+                }
+                else{
+                    points -= cardPoints;
+                    Console.WriteLine($"You lose! You now have {points} points!");
+                }
+            }
+            else{
+                if(Deck.Compare(secondCard,firstCard) == Comparator.Equal){
+                    points += cardPoints;
+                    Console.WriteLine($"You win! You now have {points} points!");
+                }
+                else{
+                    points -= cardPoints;
+                    Console.WriteLine($"You lose! You now have {points} points!");
+                }
+            }
+            //Check if playing again
+            if(points < cardPoints){
+                playAgain = "N";
+                Console.WriteLine("Sorry. You don't have enough points to keep playing.");
+            }
+            else{
+                Console.Write("\nWould you like to play again? Y or N: ");
+                playAgain = getYN();
+            }
+        }
+        return points;
+    }//end CardGame
 }
