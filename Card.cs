@@ -4,20 +4,28 @@ using System;
 
 public class Card{
 
-    private string _suite;
+    private string _suit;
     private string _value;
 
     public Card (string s, string v){
-        _suite = s;
+        _suit = s;
         _value = v;
     }
 
     //Display suite then value
-    public string Display(string padding=""){
-        return _suite+padding+_value;
+    public string Display(string padding=" "){
+        return _suit+padding+_value;
     }
     //dispaly value then suite
-    public string DisplayReverse(string padding=""){
-        return _value+padding+_suite;
+    public string DisplayReverse(string padding=" "){
+        return _value+padding+_suit;
+    }
+
+    public string GetSuit(){
+        return _suit;
+    }
+
+    public string GetValue(){
+        return _value;
     }
 }

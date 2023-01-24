@@ -75,6 +75,7 @@ class Menu
                     break;
                 case 3:
                     Console.WriteLine("Card Game");
+                    playerPoints = gr.CardGame(playerPoints);
                     break;
             }
         }
