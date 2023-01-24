@@ -1,5 +1,4 @@
 using System;
-using System.Text.RegularExpressions;
 
 class Menu
 {
@@ -21,7 +20,7 @@ class Menu
     static int ReadInt(int min, int max){
         string readValue;
         int readInt;
-
+        
         readValue = Console.ReadLine();
         readInt = int.Parse(readValue);
         while(readInt < min || readInt > max){
@@ -34,23 +33,24 @@ class Menu
     public static void Main(string[] args)
     {
         int playerPoints = 10;
+        GameRunner gr = new GameRunner();
 
         Console.WriteLine("Welcome to the Probability Game!");
         int choice = 1;
         int max;
         while(choice!=0 && playerPoints > 0 && playerPoints < 100){
             //find the highest scoring game that can be played with the points available.
-            if(playerPoints >= 5){
+            if(playerPoints >= gr.cardPoints){
                 max = 3;    
             }
-            else if(playerPoints >= 2){
+            else if(playerPoints >= gr.dicePoints){
                 max = 2;
             }
             else{
                 max = 1;
             }
             //Print the menu and get the choice
-            Console.Clear();
+            Console.WriteLine();
             Console.WriteLine($"You have {playerPoints} points.");
             PrintMenu(max);
             choice = ReadInt(0,max);
@@ -66,7 +66,8 @@ class Menu
                     }
                     break;
                 case 1:
-                    Console.WriteLine("Coin Game");
+                    Console.WriteLine("\nCoin Game");
+                    playerPoints = gr.CoinGame(playerPoints);
                     break;
                 case 2:
                     Console.WriteLine("Dice Game");

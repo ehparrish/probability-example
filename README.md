@@ -13,3 +13,5 @@ A die will be rolled. User guesess if the new roll is higher or lower.
 A card is drawn from the deck. User guesess if the next card is higher or lower. If user plays the game multiple times in a row, the cards are NOT replaced, but when leaving and returning, the cards are replaced.
 
 The game ends when the user gets 100 points, gets 0 points, or enters "quit"
+
+Save a file with user names and their point values. Allow a user to load a pervious game or start as a new player.
