@@ -71,6 +71,7 @@ class Menu
                     break;
                 case 2:
                     Console.WriteLine("Dice Game");
+                    playerPoints = gr.DiceGame(playerPoints);
                     break;
                 case 3:
                     Console.WriteLine("Card Game");
