@@ -7,6 +7,7 @@ public class GameRunner{
     public int coinPoints = 1; //how many points the coin game is worth
     private Die _die = new Die();
     public int dicePoints = 2; //how many points the dice game is worth
+    public Deck _deck = new Deck();
     public int cardPoints = 5;
 
     //Reads input line and verfies a Y or N
