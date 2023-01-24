@@ -30,7 +30,18 @@ class Deck:
 
     def draw_and_replace(self):
         self.cards.insert(0, self.cards.pop())
-        return self.cards[0]
+        return self.cards[0] # Beware, this is a reference
+
+    def count(self):
+        return len(self.cards)
+
+    def Compare(card1, card2):
+        if Deck.VALUE_LIST.index(card1.value) < Deck.VALUE_LIST.index(card2.value):
+            return Comparator.LESS
+        elif Deck.VALUE_LIST.index(card1.value) > Deck.VALUE_LIST.index(card2.value):
+            return Comparator.GREATER
+        else:
+            return Comparator.EQUAL
 
 if __name__ == "__main__":
     deck = Deck()
@@ -46,3 +57,8 @@ if __name__ == "__main__":
     deck.shuffle_all()
     print('Size of deck:', len(deck.cards))
     print('Size of discard:', len(deck.discard))
+    card1 = deck.draw_and_replace()
+    card2 = deck.draw_and_replace()
+
+    # Got a duplicate here once
+    print(card1.Display(), card2.Display(), Deck.Compare(card1, card2))
