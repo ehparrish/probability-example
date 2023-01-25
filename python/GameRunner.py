@@ -21,16 +21,15 @@ class GameRunner:
         play_again = 'Y'
         self.deck.shuffle_all()
         while play_again != 'N':
-            print("\nDealing card")
             first_card = self.deck.draw_and_discard()
-            print(first_card.display_reverse(" of "))
             second_card = self.deck.draw_and_discard()
-            print(second_card.display_reverse(" of "))
-            print("Do you think the next card will be higher (>), lower (<), or the same (=) ?")
-            print("Enter >, <, or = : ")
+            print("\nDealing card\n"
+                    f"{first_card.display_reverse(' of ')}\n"
+                    # f"{second_card.display_reverse(' of ')}\n" # Debugging
+                    "Do you think the next card will be higher (>), lower (<), or the same (=) ?\n"
+                    "Enter >, <, or = : ")
             choice = GameRunner.get_compare()
-            print("Next Card!")
-            print(second_card.display_reverse(' of '))
+            print(f"Next Card!\n{second_card.display_reverse(' of ')}")
             win = False
             if (choice == '<' and Deck.Deck.compare(first_card, second_card) == Deck.Comparator.LESS):
                 win = True

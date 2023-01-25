@@ -7,7 +7,7 @@ def print_menu(score, points):
     for i, game in enumerate(GAMES):
         if (score >= points[i]):
             print(f"{i+1}. {game} ({points[i]} points)")
-    print("0. Quite while you are ahead!")
+    print("0. Quit while you are ahead!")
     print("Please enter the number for your choice: ")
 
 def main():
