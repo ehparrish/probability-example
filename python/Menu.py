@@ -17,7 +17,7 @@ def main():
     print("Welcome to the Probability Game!");
     choice = -1;
     while (choice != 0 and player_points > 0 and player_points < 100):
-        points = [runner.coinPoints, runner.dicePoints, runner.cardPoints]
+        points = [runner.coin_points, runner.dice_points, runner.card_points]
         print(f'\nYou have {player_points} points.')
         print_menu(player_points, points)
         try:

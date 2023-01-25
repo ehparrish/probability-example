@@ -7,14 +7,46 @@ class GameRunner:
         self.coin = Coin.Coin()
         self.die = Die.Die()
         self.deck = Deck.Deck()
-        self.coinPoints = 1;
-        self.dicePoints = 2;
-        self.cardPoints = 5;
+        self.coin_points = 1;
+        self.dice_points = 2;
+        self.card_points = 5;
 
     def play_coin_game(self, points):
         return points
 
     def play_dice_game(self, points):
+        play_again = 'Y'
+        while play_again != 'N':
+            first_roll = self.die.roll()
+            print(f"{self.die.display()}\n"
+                   "Do you think the next roll will be Higher (>), Lower (<), or the Same (=) ?\n"
+                   "Enter >, <, or = ?")
+            choice = GameRunner.get_compare()
+            print("\nRolling again!")
+            second_roll = self.die.roll()
+            print(f"{self.die.display()}")
+            win = False
+            if (choice == '>' and second_roll > first_roll):
+                win = True
+            elif (choice == '=' and second_roll == first_roll):
+                win = True
+            elif (choice == '<' and second_roll < first_roll):
+                win = True
+            
+            if win:
+                points += self.dice_points
+                print(f"You win! You now have {points} points!")
+            else:
+                points -= self.dice_points
+                print(f"You lose! You now have {points} points!")
+
+            if points < self.dice_points:
+                play_again = 'N'
+                print("Sorry, you don't have enough points to keep playing.")
+            else:
+                print("\nWould you like to play again? Y or N: ")
+                play_again = GameRunner.get_y_or_n()
+
         return points
 
     def play_card_game(self, points):
@@ -31,21 +63,21 @@ class GameRunner:
             choice = GameRunner.get_compare()
             print(f"Next Card!\n{second_card.display_reverse(' of ')}")
             win = False
-            if (choice == '<' and Deck.Deck.compare(first_card, second_card) == Deck.Comparator.LESS):
+            if (choice == '<' and Deck.Deck.compare(second_card, first_card) == Deck.Comparator.LESS):
                 win = True
-            elif (choice == '=' and Deck.Deck.compare(first_card, second_card) == Deck.Comparator.EQUAL):
+            elif (choice == '=' and Deck.Deck.compare(second_card, first_card) == Deck.Comparator.EQUAL):
                 win = True
-            elif (choice == '>' and Deck.Deck.compare(first_card, second_card) == Deck.Comparator.GREATER):
+            elif (choice == '>' and Deck.Deck.compare(second_card, first_card) == Deck.Comparator.GREATER):
                 win = True
 
             if win:
-                points += self.cardPoints
+                points += self.card_points
                 print(f"You win!  You now have {points} points!")
             else:
-                points -= self.cardPoints
+                points -= self.card_points
                 print(f"You lose!  You now have {points} pionts!")
 
-            if points < self.cardPoints:
+            if points < self.card_points:
                 play_again = 'N'
                 print("Sorry. You don't have enough points to keep playing.")
             else:
