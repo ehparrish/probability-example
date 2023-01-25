@@ -35,7 +35,7 @@ class Deck:
     def count(self):
         return len(self.cards)
 
-    def Compare(card1, card2):
+    def compare(card1, card2):
         if Deck.VALUE_LIST.index(card1.value) < Deck.VALUE_LIST.index(card2.value):
             return Comparator.LESS
         elif Deck.VALUE_LIST.index(card1.value) > Deck.VALUE_LIST.index(card2.value):
@@ -46,9 +46,9 @@ class Deck:
 if __name__ == "__main__":
     deck = Deck()
     deck.shuffle_all()
-    print(deck.draw_and_replace().Display())
+    print(deck.draw_and_replace().display())
     print('Size of deck:', len(deck.cards))
-    print(deck.draw_and_discard().Display())
+    print(deck.draw_and_discard().display())
     print('Size of deck:', len(deck.cards))
     print('Size of discard:', len(deck.discard))
     deck.shuffle_current()
@@ -61,4 +61,4 @@ if __name__ == "__main__":
     card2 = deck.draw_and_replace()
 
     # Got a duplicate here once
-    print(card1.Display(), card2.Display(), Deck.Compare(card1, card2))
+    print(card1.display(), card2.display(), Deck.compare(card1, card2))

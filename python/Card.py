@@ -4,9 +4,9 @@ class Card:
         self.suit = suit
         self.value = value
 
-    def Display(self, padding=" "):
+    def display(self, padding=" "):
         return f"{self.suit}{padding}{self.value}"
 
-    def DisplayReverse(self, padding=" "):
+    def display_reverse(self, padding=" "):
         return f"{self.value}{padding}{self.suit}"
 
