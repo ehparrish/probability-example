@@ -41,10 +41,10 @@ class GameRunner:
 
             if win:
                 points += self.cardPoints
-                print("You win!  You now have {points} points!")
+                print(f"You win!  You now have {points} points!")
             else:
                 points -= self.cardPoints
-                print("You lose!  You now have {points} pionts!")
+                print(f"You lose!  You now have {points} pionts!")
 
             if points < self.cardPoints:
                 play_again = 'N'
