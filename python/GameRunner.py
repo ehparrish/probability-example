@@ -12,6 +12,36 @@ class GameRunner:
         self.card_points = 5;
 
     def play_coin_game(self, points):
+        play_again = 'Y'
+        while play_again != 'N':
+            first_flip = self.coin.flip()
+            print("\nFlipping coin!\n"
+                    f"{self.coin.display()}\n"
+                    "Do you think the next flip will be the same? Y or N: ");
+            choice = GameRunner.get_y_or_n()
+            print("\nFlipping again!")
+            second_flip = self.coin.flip()
+            print(f"{self.coin.display()}")
+            win = False
+            if (choice == 'Y' and second_flip == first_flip):
+                win = True
+            elif (choice == 'N' and second_flip != first_flip):
+                win = True
+            
+            if win:
+                points += self.coin_points
+                print(f"You win! You now have {points} points!")
+            else:
+                points -= self.coin_points
+                print(f"You lose! You now have {points} points!")
+
+            if points < self.coin_points:
+                play_again = 'N'
+                print("Sorry, you don't have enough points to keep playing.")
+            else:
+                print("\nWould you like to play again? Y or N: ")
+                play_again = GameRunner.get_y_or_n()
+
         return points
 
     def play_dice_game(self, points):
@@ -19,7 +49,7 @@ class GameRunner:
         while play_again != 'N':
             first_roll = self.die.roll()
             print(f"{self.die.display()}\n"
-                   "Do you think the next roll will be Higher (>), Lower (<), or the Same (=) ?\n"
+                   "Do you think the next roll will be Higher (>), Lower (<), or the same (=) ?\n"
                    "Enter >, <, or = ?")
             choice = GameRunner.get_compare()
             print("\nRolling again!")
