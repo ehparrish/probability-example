@@ -2,6 +2,14 @@ using System;
 
 class Menu
 {
+    public static string GetYN(){
+        string choice = Console.ReadLine().ToUpper();
+        while (choice != "Y" && choice != "N"){
+            Console.Write("Please enter Y or N: ");
+            choice = Console.ReadLine().ToUpper();
+        } 
+        return choice;
+    }
     public static void PrintMenu(int max){
         Console.WriteLine("You can play: ");
         //only print the games the player has enough points to play
@@ -34,8 +42,30 @@ class Menu
     {
         int playerPoints = 10;
         GameRunner gr = new GameRunner();
+        string filename = "scores.txt";
+        string[] lines = System.IO.File.ReadAllLines(filename);
+        string saveLoad;
+        int index = -1;
 
         Console.WriteLine("Welcome to the Probability Game!");
+        Console.WriteLine("Please enter your name: ");
+        string playerName = Console.ReadLine();
+        
+        //if there are saved games, check to see if this person has one
+        if (lines.Length > 0){
+            index = Array.FindIndex(lines, element => element.Contains(playerName));
+            if(index >= 0){
+                Console.WriteLine($"Welcome back, {playerName}!");
+                Console.WriteLine("Would you like to load a previously saved game? Enter Y or N");
+                saveLoad = GetYN();
+                if(saveLoad == "Y"){
+                    string[] parts = lines[index].Split("||");
+                    playerPoints= int.Parse(parts[1]);
+                }
+            }
+        }
+
+        //determine which game to play
         int choice = 1;
         int max;
         while(choice!=0 && playerPoints > 0 && playerPoints < 100){
@@ -85,5 +115,26 @@ class Menu
         else if(playerPoints >= 100){
             Console.WriteLine("Wow! You broke the bank! Congratulations!");
         }
-    }
+
+        //Ask if want to save.
+        Console.Write("Would you like to save your name and score? Enter Y or N: ");
+        saveLoad = GetYN();
+        if(saveLoad == "Y"){
+            //if this player has played before, rewrite their info.
+            if(index >= 0){
+                lines[index] = $"{playerName}||{playerPoints}";
+            }
+            using (StreamWriter outputFile = new StreamWriter(filename)){
+                //rewrite all the old info
+                foreach(string line in lines){
+                    outputFile.WriteLine(line);
+                }
+                //If this is a new player, write the information at the end
+                if(index<0){
+                    outputFile.WriteLine($"{playerName}||{playerPoints}");
+                }
+            }   
+        }
+
+    }//end Main
 }
