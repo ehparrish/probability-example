@@ -10,7 +10,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Probability.csproj",
+                "${workspaceFolder}/csharp/Probability.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
