@@ -23,3 +23,4 @@ bin/Debug/net7.0/Probability.deps.json
 bin/Debug/net7.0/Probability.dll
 bin/Debug/net7.0/Probability.pdb
 bin/Debug/net7.0/Probability.runtimeconfig.json
+__pycache__

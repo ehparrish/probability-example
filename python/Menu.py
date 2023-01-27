@@ -1,4 +1,6 @@
 import GameRunner
+import sys
+import fileinput
 
 GAMES = ['Coin Flip', 'Dice Roll', 'Card Game']
 
@@ -14,7 +16,25 @@ def main():
     player_points = 10
     runner = GameRunner.GameRunner()
 
-    print("Welcome to the Probability Game!");
+    print("Welcome to the Probability Game!")
+    print("Please enter your name:")
+    player_name = input()
+
+    # Attempt to load the player score
+    filename = "scores.txt"
+    try:
+        print("Trying to open the file")
+        with open(filename) as fin:
+            for line in fin:
+                parts = line.split('||')
+                if len(parts) >= 2 and parts[0] == player_name:
+                    player_points = int(parts[1]) # This could throw an exception, but assume parse works
+                    break;
+    except:
+        print("Failed to open file.  Making a new one.")
+        f = open(filename, 'a')
+        f.close();
+
     choice = -1;
     while (choice != 0 and player_points > 0 and player_points < 100):
         points = [runner.coin_points, runner.dice_points, runner.card_points]
@@ -44,6 +64,25 @@ def main():
         print("Oh no! You lost it all!  Better luck next time!")
     elif  player_points >= 100:
         print("Wow!  You broke the bank!  Congratulations!")
+
+
+    # Ask if the player wants to save their score to the file
+    print("Would you like to save your name and score?  Enter Y or N: ")
+    choice = GameRunner.GameRunner.get_y_or_n()
+    updated = False
+    if (choice == 'Y'):
+        with open(filename, 'r') as f:
+            lines = f.readlines()
+        with open(filename, 'w') as f:
+            for line in lines:
+                parts = line.split('||')
+                if len(parts) >= 2 and parts[0] == player_name:
+                    f.write(f"{player_name}||{player_points}\n")
+                    updated = True
+                else:
+                    f.write(line)
+            if not updated:
+                f.write(f"{player_name}||{player_points}\n")
 
 if __name__ == "__main__":
     main()
